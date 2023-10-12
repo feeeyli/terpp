@@ -10,7 +10,7 @@ export const PreviewDialog = (props: PreviewDialogProps) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<button className="absolute bg-black/30 inset-0">
+				<button className="absolute bg-black/30 inset-0 rounded-md">
 					<PlayCircle
 						weight="fill"
 						size="2rem"

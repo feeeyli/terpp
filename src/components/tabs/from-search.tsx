@@ -7,11 +7,14 @@ import axios from "axios";
 import { SearchResults, Video } from "@/@types/video";
 import { VideoResult } from "../video-result";
 import { ScrollArea } from "../ui/scroll-area";
+import { SEARCH_RESULT_PLACEHOLDER } from "@/SEARCH_RESULT_PLACEHOLDER";
 
 export const FromSearch = () => {
 	const urlInputRef = useRef<HTMLInputElement>(null);
 	const [isSearching, setIsSearching] = useState(false);
-	const [searchResult, setSearchResult] = useState<Video[]>([]);
+	const [searchResult, setSearchResult] = useState<Video[]>(
+		SEARCH_RESULT_PLACEHOLDER
+	);
 
 	const handleSearch = () => {
 		if (!urlInputRef.current?.value) return;
@@ -39,7 +42,7 @@ export const FromSearch = () => {
 				// 		url: vi.url,
 				// 	}))
 				// );
-				console.log(res.data.videos);
+				// console.log(res.data.videos);
 				setSearchResult(res.data.videos);
 			})
 			.catch((err) => console.error(err))
@@ -81,8 +84,8 @@ export const FromSearch = () => {
 				</Button>
 			</div>
 			{searchResult.length > 0 && (
-				<ScrollArea className="h-[416px] mt-4">
-					<ul className="space-y-2 pr-4">
+				<ScrollArea className="h-[28rem] mt-4">
+					<ul className="sm:space-y-2 space-y-4">
 						{searchResult.map((video) => (
 							<VideoResult video={video} key={video.id} />
 						))}

@@ -103,17 +103,20 @@ export const FromLink = () => {
 				</Button>
 			</div>
 			{dlResult?.link && (
-				<Button asChild>
+				<Button
+					asChild
+					className="bg-green-300 hover:bg-green-300/90 text-green-950"
+				>
 					<a
 						href={dlResult?.link}
 						target="_blank"
 						rel="noreferrer"
-						className="bg-green-300 min-h-9 h-auto w-full hover:bg-green-300/90 text-green-950 mt-2"
+						className="min-h-9 h-auto w-full mt-2"
 					>
 						<DownloadSimple size="1.5rem" weight="light" />
 						<span className="break-words">
 							Baixar "{dlResult.title}" (
-							{(dlResult.filesize / (1024 * 1024)).toFixed(1)}Mb)
+							{(dlResult.filesize / (1024 * 1024)).toFixed(1)}MB)
 						</span>
 					</a>
 				</Button>

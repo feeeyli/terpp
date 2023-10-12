@@ -47,7 +47,7 @@ export const VideoResult = (props: VideoResultProps) => {
 	};
 
 	return (
-		<li className="flex justify-between">
+		<div className="flex flex-col sm:flex-row justify-between">
 			<div className="flex">
 				{props.video.thumbnail && (
 					<div className="mr-2 aspect-video h-16 relative">
@@ -81,7 +81,7 @@ export const VideoResult = (props: VideoResultProps) => {
 				</div>
 			</div>
 			<Button
-				className="bg-green-300 hover:bg-green-300/90 text-green-950 ml-2"
+				className="bg-green-300 hover:bg-green-300/90 text-green-950 sm:mt-0 sm:ml-2 mt-2"
 				onClick={handleDownload}
 				size="sm"
 			>
@@ -106,6 +106,6 @@ export const VideoResult = (props: VideoResultProps) => {
 					</>
 				)}
 			</Button>
-		</li>
+		</div>
 	);
 };
