@@ -4,12 +4,13 @@ import {
 	MagnifyingGlass,
 	SpinnerGap,
 } from "@phosphor-icons/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TabsContent } from "../ui/tabs";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { ytparse } from "@/lib/utils";
 import axios from "axios";
+import ReactPlayer from "react-player/youtube";
 
 type DlResultData = {
 	link: string;
@@ -23,7 +24,9 @@ type DlResultData = {
 
 export const FromLink = () => {
 	const urlInputRef = useRef<HTMLInputElement>(null);
+	const [urlInputValue, setUrlInputValue] = useState("");
 	const [isSearching, setIsSearching] = useState(false);
+	const [validUrl, setValidUrl] = useState(false);
 	const [dlResult, setDlResult] = useState<DlResultData>();
 
 	const handlePaste = async () => {
@@ -50,7 +53,6 @@ export const FromLink = () => {
 
 		axios(options)
 			.then((res) => {
-				console.log(res.data);
 				setDlResult(res.data);
 			})
 			.catch((err) => console.error(err))
@@ -59,12 +61,18 @@ export const FromLink = () => {
 			});
 	};
 
+	useEffect(() => {
+		setValidUrl(!!ytparse(urlInputValue));
+	}, [urlInputValue]);
+
 	return (
 		<TabsContent value="link" className="pt-3">
 			<Input
 				type="text"
 				placeholder="Insira o URL da musica."
 				className="mb-2"
+				value={urlInputValue}
+				onChange={(e) => setUrlInputValue(e.target.value)}
 				ref={urlInputRef}
 			/>
 			<div className="flex gap-2 flex-1">
@@ -79,7 +87,11 @@ export const FromLink = () => {
 					/>
 					Colar
 				</Button>
-				<Button onClick={handleDownload} className="w-full font-normal">
+				<Button
+					onClick={handleDownload}
+					disabled={!validUrl}
+					className="w-full font-normal"
+				>
 					{!isSearching && (
 						<>
 							<MagnifyingGlass
@@ -101,6 +113,25 @@ export const FromLink = () => {
 						</>
 					)}
 				</Button>
+			</div>
+			<div
+				data-hidden={!validUrl}
+				className="aspect-video data-[hidden=true]:hidden w-full overflow-hidden rounded-md mt-2"
+			>
+				<ReactPlayer
+					url={urlInputValue}
+					width="100%"
+					height="100%"
+					playbackRate={1}
+					controls
+					config={{
+						playerVars: {
+							autoplay: true,
+						},
+					}}
+					onError={() => console.log("NOOOOO")}
+					onReady={() => setValidUrl(true)}
+				/>
 			</div>
 			{dlResult?.link && (
 				<Button

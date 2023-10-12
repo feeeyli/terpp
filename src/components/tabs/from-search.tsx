@@ -12,9 +12,7 @@ import { SEARCH_RESULT_PLACEHOLDER } from "@/SEARCH_RESULT_PLACEHOLDER";
 export const FromSearch = () => {
 	const urlInputRef = useRef<HTMLInputElement>(null);
 	const [isSearching, setIsSearching] = useState(false);
-	const [searchResult, setSearchResult] = useState<Video[]>(
-		SEARCH_RESULT_PLACEHOLDER
-	);
+	const [searchResult, setSearchResult] = useState<Video[]>([]);
 
 	const handleSearch = () => {
 		if (!urlInputRef.current?.value) return;
