@@ -7,7 +7,7 @@ import axios from "axios";
 import { SearchResults, Video } from "@/@types/video";
 import { VideoResult } from "../video-result";
 import { ScrollArea } from "../ui/scroll-area";
-import { SEARCH_RESULT_PLACEHOLDER } from "@/SEARCH_RESULT_PLACEHOLDER";
+// import { SEARCH_RESULT_PLACEHOLDER } from "@/SEARCH_RESULT_PLACEHOLDER";
 
 export const FromSearch = () => {
 	const urlInputRef = useRef<HTMLInputElement>(null);
